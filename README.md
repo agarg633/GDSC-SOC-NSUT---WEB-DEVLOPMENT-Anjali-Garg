@@ -67,9 +67,6 @@ short_url----------->long_url
 This allows the program to retrieve previously stored URLs even after it is closed and reopened.
 
 Future Improvements
-
-Some possible improvements include:
-
 Using a database instead of a text file
 Creating a web-based interface
 Generating random short codes
@@ -78,5 +75,4 @@ Adding click statistics
 Improving URL validation
 
 Author
-
 Anjali Garg
