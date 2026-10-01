@@ -11,6 +11,13 @@ FEATURES OF THE PROGRAM:
 -->Prevents duplicate short URLs
 -->Contains a simple menu-driven interface
 
+
+WHY I BUILT IT THIS WAY:
+I could have used a database, a web framework, or hashing algorithms. I chose to keep it simple on purpose:
+- **A text file instead of a database.** Anyone can open the text file and see exactly what is stored. There's nothing to install or configure.
+- **Only Python's built-in modules.** 'urllib.parse' and 'webbrowser` come with Python, so it runs on any computer that has Python
+
+- 
 HOW IT WORKS
 The program assigns a unique short URL to each long URL.
 For example:
