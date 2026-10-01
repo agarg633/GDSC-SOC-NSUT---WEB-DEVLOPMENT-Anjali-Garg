@@ -10,6 +10,7 @@ FEATURES OF THE PROGRAM:
 -->Stores URL data using a text file
 -->Prevents duplicate short URLs
 -->Contains a simple menu-driven interface
+-->Deletes a previously stored URL
 
 
 WHY I BUILT IT THIS WAY:
@@ -58,7 +59,8 @@ The program provides the following options:
 2) Opens a long URL(in browser) from a previously given short URL
 3) Displays the long URL from the short URL
 4) Displays all the URLs
-5) Exit
+5) Deletes a previously existing URL
+6) Exits
 
 How to Run
 Make sure Python is installed on your computer.
@@ -74,12 +76,13 @@ short_url----------->long_url
 This allows the program to retrieve previously stored URLs even after it is closed and reopened.
 
 Future Improvements
-Using a database instead of a text file
 Creating a web-based interface
 Generating random short codes
 Adding expiration dates for short URLs
 Adding click statistics
 Improving URL validation
+
+Hope you like it :)
 
 Author
 Anjali Garg
