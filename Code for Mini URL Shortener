@@ -2,9 +2,10 @@ import webbrowser
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
-print("*********************************This program is created for GDSC NSUT WEB DEVLOPMENT******************************** ")
-def validate_url(url, shorturl):
 
+print("*********************************This program is created for GDSC NSUT WEB DEVLOPMENT******************************** ")
+
+def validate_url(url, shorturl):
     if len(url) <= len(shorturl):
         print("Invalid URL: URL must be longer than the short URL.")
         return False
@@ -40,10 +41,10 @@ def validate_url(url, shorturl):
         response = urlopen(request, timeout=5)
 
         print("Website exists and is reachable.")
+
         response.close()
 
     except HTTPError as e:
-
         if e.code in [401, 403, 404]:
             print("Website exists, but returned HTTP error:", e.code)
         else:
@@ -62,22 +63,17 @@ def validate_url(url, shorturl):
 
 
 def find_existing_url(url):
-
     try:
-
         file = open("fileurl_a.txt", "r")
 
         for line in file:
-
             data = line.strip().split("----------->")
 
             if len(data) == 2:
-
                 saved_shorturl = data[0]
                 saved_longurl = data[1]
 
                 if saved_longurl.lower() == url.lower():
-
                     file.close()
                     return saved_shorturl
 
@@ -89,26 +85,53 @@ def find_existing_url(url):
     return None
 
 
+def delete_url(shorturl):
+    try:
+        file = open("fileurl_a.txt", "r")
+        lines = file.readlines()
+        file.close()
+
+        found = False
+        new_lines = []
+
+        for line in lines:
+            data = line.strip().split("----------->")
+
+            if len(data) == 2 and data[0] == shorturl:
+                found = True
+                print("URL deleted successfully.")
+                print("Deleted URL:", data[1])
+            else:
+                new_lines.append(line)
+
+        if found:
+            file = open("fileurl_a.txt", "w")
+            file.writelines(new_lines)
+            file.close()
+        else:
+            print("Short URL not found.")
+
+    except FileNotFoundError:
+        print("No URLs have been saved yet.")
+
+
 print("1) Generate a short URL from a long URL")
 print("2) Open a long URL from a previously given short URL")
 print("3) Display the long URL from the short URL")
 print("4) Display all the URLs")
-print("5) Exit")
+print("5) Delete a URL")
+print("6) Exit")
 
 
 counter = 111
 
-
 try:
-
     file = open("fileurl_a.txt", "r")
 
     for line in file:
-
         data = line.strip().split("----------->")
 
         if len(data) == 2 and data[0].startswith("abc"):
-
             try:
                 number = int(data[0][3:])
 
@@ -121,22 +144,19 @@ try:
     file.close()
 
 except FileNotFoundError:
-
     counter = 111
 
 
 choice_1 = 0
 
-
-while choice_1 != 5:
+while choice_1 != 6:
 
     try:
         choice_1 = int(input("\nEnter your choice: "))
 
     except ValueError:
-        print("Invalid choice. Please enter a number from 1 to 5.")
+        print("Invalid choice. Please enter a number from 1 to 6.")
         continue
-
 
     if choice_1 == 1:
 
@@ -173,7 +193,6 @@ while choice_1 != 5:
         shorturl = input("Enter the short URL: ").strip()
 
         try:
-
             file = open("fileurl_a.txt", "r")
 
             found = False
@@ -189,15 +208,15 @@ while choice_1 != 5:
                     print("Long URL:", longurl)
                     print("Opening the website...")
 
-                    if not (longurl.startswith("http://") or
-                            longurl.startswith("https://")):
-
+                    if not (
+                        longurl.startswith("http://")
+                        or longurl.startswith("https://")
+                    ):
                         longurl = "https://" + longurl
 
                     webbrowser.open(longurl)
 
                     found = True
-
                     break
 
             file.close()
@@ -206,7 +225,6 @@ while choice_1 != 5:
                 print("Short URL not found.")
 
         except FileNotFoundError:
-
             print("No URLs have been saved yet.")
 
 
@@ -215,7 +233,6 @@ while choice_1 != 5:
         shorturl = input("Enter the short URL: ").strip()
 
         try:
-
             file = open("fileurl_a.txt", "r")
 
             found = False
@@ -229,7 +246,6 @@ while choice_1 != 5:
                     print("Long URL:", data[1])
 
                     found = True
-
                     break
 
             file.close()
@@ -238,41 +254,44 @@ while choice_1 != 5:
                 print("Short URL not found.")
 
         except FileNotFoundError:
-
             print("No URLs have been saved yet.")
+
 
     elif choice_1 == 4:
 
         try:
-
             file = open("fileurl_a.txt", "r")
 
             content = file.read()
 
             if content:
-
                 print("\nAll URLs:")
                 print(content)
 
             else:
-
                 print("No URLs have been saved yet.")
 
             file.close()
 
         except FileNotFoundError:
-
             print("No URLs have been saved yet.")
 
 
     elif choice_1 == 5:
+
+        shorturl = input("Enter the short URL you want to delete: ").strip()
+
+        delete_url(shorturl)
+
+
+    elif choice_1 == 6:
 
         print("Exiting program...")
 
 
     else:
 
-        print("Invalid choice. Please enter a number from 1 to 5.")
+        print("Invalid choice. Please enter a number from 1 to 6.")
 
 
 print("Program ended")
